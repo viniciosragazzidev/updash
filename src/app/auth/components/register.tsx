@@ -1,12 +1,12 @@
 "use client";
-import HeaderTitle from "@/app/tools/components/HeaderTitle";
+import HeaderTitle from "@/tools/components/HeaderTitle";
 import { Envelope, User } from "@phosphor-icons/react";
 import { Password } from "@phosphor-icons/react/dist/ssr/Password";
 import { GoogleLogo } from "@phosphor-icons/react";
 import React, { useContext, useState } from "react";
 import { Checkbox } from "@nextui-org/react";
-import { AppContext } from "@/app/tools/context/AppContext";
-import InputReusable from "@/app/tools/components/Input";
+import InputReusable from "@/tools/components/Input";
+import { AppContext } from "@/tools/context/AppContext";
 
 const Register = () => {
   const { modeLogin, setModeLogin } = useContext(AppContext);
@@ -18,7 +18,7 @@ const Register = () => {
 
   return (
     <div
-      className={`flex w-full h-full justify-around items-center transition-all duration-1000 ${
+      className={`flex w-full h-full  px-5  justify-around items-center transition-all duration-1000 ${
         modeLogin
           ? " translate-x-[-100vw] fixed opacity-0"
           : "traslate-x-0 show"

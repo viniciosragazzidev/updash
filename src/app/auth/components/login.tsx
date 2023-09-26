@@ -1,26 +1,27 @@
 "use client";
-import HeaderTitle from "@/app/tools/components/HeaderTitle";
+import HeaderTitle from "@/tools/components/HeaderTitle";
 import { User } from "@phosphor-icons/react";
 import { Password } from "@phosphor-icons/react/dist/ssr/Password";
 import { GoogleLogo } from "@phosphor-icons/react";
 import React, { useContext, useState } from "react";
 import { Checkbox } from "@nextui-org/react";
-import { AppContext } from "@/app/tools/context/AppContext";
-import InputReusable from "@/app/tools/components/Input";
-
+import InputReusable from "@/tools/components/Input";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { AppContext } from "@/tools/context/AppContext";
 const Login = () => {
   const { modeLogin, setModeLogin } = useContext(AppContext);
   const [userLogin, setUserLogin] = useState("");
   const [senhaLogin, setSenhaLogin] = useState("");
+  const { data: session } = useSession();
   return (
     <div
-      className={`flex w-full h-full justify-around items-center transition-all duration-1000 ${
+      className={`flex w-full h-full  px-5 max-w-sm items-center transition-all duration-1000 ${
         !modeLogin
           ? " translate-x-[-100vw] fixed opacity-0"
           : "traslate-x-0  show"
       } `}
     >
-      <div className="formulario  flex flex-col gap-7 font-semibold">
+      <div className="formulario  flex flex-col gap-7 font-semibold w-full">
         <HeaderTitle
           text="Faça login para
 acessar a plataforma"
@@ -50,7 +51,7 @@ acessar a plataforma"
             }}
           />
 
-          <div className="flex justify-between items-center gap-8 max-sm:flex-col">
+          <div className="flex justify-between items-center gap-8 max-[430px]:flex-col max-[430px]:gap-3">
             <Checkbox
               defaultSelected
               radius="full"
@@ -82,7 +83,10 @@ acessar a plataforma"
             </span>
             <div className="line w-full h-[1px] bg-input"></div>
           </div>
-          <button className="w-full h-12 gap-2 active:scale-95 active:border border-primary-blue transition-all text-white bg-input rounded-md flex items-center justify-center">
+          <button
+            onClick={() => signIn("google", { callbackUrl: "/" })}
+            className="w-full h-12 gap-2 active:scale-95 active:border border-primary-blue transition-all text-white bg-input rounded-md flex items-center justify-center"
+          >
             <span className="text-primary-blue">
               <GoogleLogo size={32} weight="duotone" />
             </span>{" "}
